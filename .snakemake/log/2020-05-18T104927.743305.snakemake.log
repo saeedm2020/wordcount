@@ -1,0 +1,134 @@
+Building DAG of jobs...
+Using shell: /bin/bash
+Provided cores: 1
+Rules claiming more threads will be scaled down.
+Job counts:
+	count	jobs
+	1	all
+	4	count_words
+	1	make_archive
+	4	make_plot
+	1	zipf_test
+	11
+
+[Mon May 18 10:49:27 2020]
+rule count_words:
+    input: source/wordcount.py, data/last.txt
+    output: processed_data/last.dat
+    log: processed_data/last.log
+    jobid: 9
+    wildcards: file=last
+
+[Mon May 18 10:49:28 2020]
+Finished job 9.
+1 of 11 steps (9%) done
+
+[Mon May 18 10:49:28 2020]
+rule count_words:
+    input: source/wordcount.py, data/abyss.txt
+    output: processed_data/abyss.dat
+    log: processed_data/abyss.log
+    jobid: 6
+    wildcards: file=abyss
+
+[Mon May 18 10:49:28 2020]
+Finished job 6.
+2 of 11 steps (18%) done
+
+[Mon May 18 10:49:28 2020]
+rule make_plot:
+    input: source/plotcount.py, processed_data/last.dat
+    output: results/last.png
+    jobid: 5
+    wildcards: file=last
+
+[Mon May 18 10:49:28 2020]
+Finished job 5.
+3 of 11 steps (27%) done
+
+[Mon May 18 10:49:28 2020]
+rule count_words:
+    input: source/wordcount.py, data/sierra.txt
+    output: processed_data/sierra.dat
+    log: processed_data/sierra.log
+    jobid: 8
+    wildcards: file=sierra
+
+[Mon May 18 10:49:28 2020]
+Finished job 8.
+4 of 11 steps (36%) done
+
+[Mon May 18 10:49:28 2020]
+rule count_words:
+    input: source/wordcount.py, data/isles.txt
+    output: processed_data/isles.dat
+    log: processed_data/isles.log
+    jobid: 7
+    wildcards: file=isles
+
+[Mon May 18 10:49:29 2020]
+Finished job 7.
+5 of 11 steps (45%) done
+
+[Mon May 18 10:49:29 2020]
+rule zipf_test:
+    input: source/zipf_test.py, processed_data/abyss.dat, processed_data/isles.dat, processed_data/sierra.dat, processed_data/last.dat
+    output: results/results.txt
+    jobid: 10
+
+[Mon May 18 10:49:29 2020]
+Finished job 10.
+6 of 11 steps (55%) done
+
+[Mon May 18 10:49:29 2020]
+rule make_plot:
+    input: source/plotcount.py, processed_data/abyss.dat
+    output: results/abyss.png
+    jobid: 2
+    wildcards: file=abyss
+
+[Mon May 18 10:49:29 2020]
+Finished job 2.
+7 of 11 steps (64%) done
+
+[Mon May 18 10:49:29 2020]
+rule make_plot:
+    input: source/plotcount.py, processed_data/sierra.dat
+    output: results/sierra.png
+    jobid: 4
+    wildcards: file=sierra
+
+[Mon May 18 10:49:30 2020]
+Finished job 4.
+8 of 11 steps (73%) done
+
+[Mon May 18 10:49:30 2020]
+rule make_plot:
+    input: source/plotcount.py, processed_data/isles.dat
+    output: results/isles.png
+    jobid: 3
+    wildcards: file=isles
+
+[Mon May 18 10:49:30 2020]
+Finished job 3.
+9 of 11 steps (82%) done
+
+[Mon May 18 10:49:30 2020]
+localrule make_archive:
+    input: results/abyss.png, results/isles.png, results/sierra.png, results/last.png, processed_data/abyss.dat, processed_data/isles.dat, processed_data/sierra.dat, processed_data/last.dat, results/results.txt
+    output: zipf_analysis.tar.gz
+    jobid: 1
+
+[Mon May 18 10:49:30 2020]
+Finished job 1.
+10 of 11 steps (91%) done
+
+[Mon May 18 10:49:30 2020]
+localrule all:
+    input: zipf_analysis.tar.gz
+    jobid: 0
+
+[Mon May 18 10:49:30 2020]
+Finished job 0.
+11 of 11 steps (100%) done
+Complete log: /Users/saeedmoh/Downloads/workshops/CodeRefineryWorkshop3/wordcount/.snakemake/log/2020-05-18T104927.743305.snakemake.log
